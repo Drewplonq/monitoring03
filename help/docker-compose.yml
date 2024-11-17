@@ -82,7 +82,7 @@ services:
       - 5046:5046
       - 5044:5044
     volumes:
-      - ./configs/logstash.conf:/usr/share/logstash/pipeline/logstash.conf:Z
+      - ./configs/logstash.conf:/usr/share/logstash/data/logstash.conf:Z
       - ./configs/logstash.yml:/opt/logstash/config/logstash.yml:Z
     networks:
       - elastic
@@ -98,7 +98,7 @@ services:
     command: filebeat -e -strict.perms=false
     volumes:
       - ./configs/filebeat.yml:/usr/share/filebeat/filebeat.yml:Z
-      - /var/lib/docker:/var/lib/docker
+      - .:/var/lib/docker:/var/lib/docker
       - /var/run/docker.sock:/var/run/docker.sock:Z
     depends_on:
       - logstash
